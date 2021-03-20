@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:13 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/20 11:11:10 by youncho          ###   ########.fr       */
+/*   Updated: 2021/03/20 17:33:15 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 
 # define FLOOR 0
 # define CEILING 1
+
+
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
 
 # define MAX_SCREEN_WIDTH 1920
 # define MAX_SCREEN_HEIGHT 1080
@@ -98,8 +104,30 @@ typedef struct	s_sprite
 
 typedef struct	s_raycast
 {
-
-}				t_raycase;
+	double		cam_x;
+	double		dir_x;
+	double		dir_y;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	int			tex_num;
+	double		wall_x;
+	double		step;
+	double		tex_pos;
+	int			tex_x;
+	int			tex_y;
+}				t_raycast;
 
 typedef struct	s_cub3d
 {
@@ -120,6 +148,7 @@ typedef struct	s_cub3d
 	t_list		*lst;
 	t_image		img;
 	t_sprite	*spr;
+	t_raycast	ray;
 }				t_cub3d;
 
 
@@ -150,6 +179,8 @@ int				press_key(int key, t_cub3d *cub);
 int				press_release(int key, t_cub3d *cub);
 void			positioning_cam(t_cub3d *cub, bool *key);
 void			rotate_cam(t_camera *cam, double rot);
+void			init_raycast(t_cub3d *cub, t_camera *cam, t_raycast *ray, int x);
+
 void _test(t_cub3d *cub);
 
 

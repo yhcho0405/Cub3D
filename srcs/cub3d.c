@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:16 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/20 11:12:44 by youncho          ###   ########.fr       */
+/*   Updated: 2021/03/20 23:14:39 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_cub3d(t_cub3d *cub)
 	cub->cam.dir = 0;
 	cub->cam.x = 0;
 	cub->cam.y = 0;
-	cub->cam.dir_x = -1.0;
+	cub->cam.dir_x = 1.0;
 	cub->cam.dir_y = 0.0;
 	cub->cam.plane_x = 0.0;
 	cub->cam.plane_y = 0.66;

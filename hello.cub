@@ -1,4 +1,4 @@
-R 1920 1080
+R 120 70
 NO ./statics/textures/christmas_blue_256.xpm
 SO ./statics/textures/christmas_red_256.xpm
 WE ./statics/textures/christmas_brown_256.xpm
