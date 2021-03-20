@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 02:56:20 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/20 11:03:14 by youncho          ###   ########.fr       */
+/*   Updated: 2021/03/20 23:10:58 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,17 @@ void	positioning_cam(t_cub3d *cub, bool *key)
 
 	cam = &cub->cam;
 	if (key[K_W])
-		move_cam(cub, cam->dir_x * cam->move, cam->dir_x * cam->move);
+		move_cam(cub, cam->dir_x * cam->move, cam->dir_y * cam->move);
 	if (key[K_S])
-		move_cam(cub, -(cam->dir_x * cam->move), -(cam->dir_x * cam->move));
+		move_cam(cub, cam->dir_x * -cam->move, cam->dir_y * -cam->move);
 	if (key[K_A])
-		move_cam(cub, cam->dir_y * cam->move, -(cam->dir_x * cam->move));
+		move_cam(cub, cam->dir_y * cam->move, cam->dir_x * -cam->move);
 	if (key[K_D])
-		move_cam(cub, -(cam->dir_y * cam->move), cam->dir_x * cam->move);
+		move_cam(cub, cam->dir_y * -cam->move, cam->dir_x * cam->move);
 	if (key[K_LEFT])
 		rotate_cam(&cub->cam, -cub->cam.rotate);
 	if (key[K_RIGHT])
 		rotate_cam(&cub->cam, cub->cam.rotate);
+	if (key[K_ESC])
+		exit(0);
 }
