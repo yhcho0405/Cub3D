@@ -6,11 +6,15 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:16 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/20 23:14:39 by youncho          ###   ########.fr       */
+/*   Updated: 2021/03/24 06:39:56 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
+// 텍스쳐 스프라이트 해상도 다를 때 abort, 예외처리.
+
 
 void	init_cub3d(t_cub3d *cub)
 {

@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 01:35:50 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/20 11:20:27 by youncho          ###   ########.fr       */
+/*   Updated: 2021/03/24 08:11:02 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	store_tex(t_cub3d *cub, char **path, t_image *img)
 									&img->height);
 		img->data = (int *)mlx_get_data_addr(img->ptr, &img->bpp,
 									&img->line_size, &img->endian);
+		_err(!(cub->tex.tile[n] = (int *)calloc(TEX_SIDE * TEX_SIDE, sizeof(int))), 1);
 		i = -1;
 		while (++i < img->height)
 		{
@@ -58,28 +59,41 @@ void	set_spr_loc(t_cub3d *cub)
 
 void	sort_spr(t_cub3d *cub)
 {
-	int i;
+	int			i;
+	int			j;
+	int			max;
+	t_sprite	tmp;
 
 	i = -1;
 	while (++i < cub->spr_num)
 		cub->spr[i].dist = pow(cub->cam.x - cub->spr[i].x, 2.0) +
 						pow(cub->cam.y - cub->spr[i].y, 2.0);
+	i = -1;
+	while (++i < cub->spr_num - 1)
+	{
+		max = i;
+		j = i;
+		while (++j < cub->spr_num)
+			if (cub->spr[i].dist < cub->spr[j].dist)
+				max = j;
+		if (i != max)
+		{
+			tmp = cub->spr[i];
+			cub->spr[i] = cub->spr[max];
+			cub->spr[max] = tmp;
+		}
+	}
 }
 
-void	allocate_buffer(t_cub3d *cub)
+void	preset(t_cub3d *cub)
 {
-	int i;
+		int i;
 
 	_err(!(cub->buf = ft_calloc(cub->screen_height, sizeof(int **))), 1);
 	i = -1;
 	while (++i < cub->screen_height)
 		_err(!(cub->buf[i] = ft_calloc(cub->screen_width, sizeof(int *))), 1);
 	_err(!(cub->z_buffer = ft_calloc(cub->screen_width, sizeof(double *))), 1);
-}
-
-void	preset(t_cub3d *cub)
-{
-	allocate_buffer(cub);
 	if (cub->cam.dir == 'N')
 		rotate_cam(&cub->cam, (PI / 180) * 90);
 	else if (cub->cam.dir == 'E')
@@ -89,10 +103,35 @@ void	preset(t_cub3d *cub)
 	else if (cub->cam.dir == 'S')
 		rotate_cam(&cub->cam, (PI / 180) * 270);
 	cub->mlx = mlx_init();
-	store_tex(cub, &cub->tex.path, &cub->img);
+	store_tex(cub, cub->tex.path, &cub->img);
 	set_spr_loc(cub);
 	cub->img.ptr = mlx_new_image(cub->mlx, cub->screen_width,
 									cub->screen_height);
 	cub->img.data = (int *)mlx_get_data_addr(cub->img.ptr, &cub->img.bpp,
 									&cub->img.line_size, &cub->img.endian);
+}
+
+
+void	set_spr_tex(t_cub3d *cub, t_spr_ray *sray, int x)
+{
+	int y;
+	int draw;
+	int color;
+
+	sray->tex_x = (int)((TEX_SIDE * (x - (-sray->width / 2 + sray->screen_x)) *
+								TEX_SIDE / sray->width) / TEX_SIDE);
+	if (0 < sray->transform_y && 0 < x && x < cub->screen_width &&
+		sray->transform_y < cub->z_buffer[x])
+	{
+		y = sray->draw_start_y - 1;
+		while (++y < sray->draw_end_y)
+		{
+			draw = (y - sray->v_move_screen) * TEX_SIDE - cub->screen_height *
+							(TEX_SIDE / 2) + sray->height * (TEX_SIDE / 2);
+			sray->tex_y = ((draw * TEX_SIDE) / sray->height) / TEX_SIDE;
+			color = cub->tex.tile[4][abs((TEX_SIDE * sray->tex_y + (TEX_SIDE - sray->tex_x - 1)) % (TEX_SIDE * TEX_SIDE))];
+			if ((color & 0x00FFFFFF) != 0)
+				cub->buf[y][x] = color;
+		}
+	}
 }
