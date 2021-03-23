@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:13 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/20 17:33:15 by youncho          ###   ########.fr       */
+/*   Updated: 2021/03/24 08:16:43 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@
 
 # define TEX_SIDE 256
 
+# define V_MODE 0.0
+
 # define X_EVENT_KEY_PRESS 2
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
@@ -67,7 +69,7 @@
 typedef struct	s_texture
 {
 	char		*path[6];
-	int			tile[6][TEX_SIDE * TEX_SIDE];
+	int			*tile[6];
 	int			rgb[2];
 }				t_texture;
 
@@ -129,6 +131,25 @@ typedef struct	s_raycast
 	int			tex_y;
 }				t_raycast;
 
+typedef struct	s_spr_ray
+{
+	double		x;
+	double		y;
+	double		inversion_detection;
+	double		transform_x;
+	double		transform_y;
+	int			screen_x;
+	int			v_move_screen;
+	int			height;
+	int			width;
+	int			draw_start_x;
+	int			draw_start_y;
+	int			draw_end_x;
+	int			draw_end_y;
+	int			tex_x;
+	int			tex_y;
+}				t_spr_ray;
+
 typedef struct	s_cub3d
 {
 	int			fd;
@@ -149,20 +170,49 @@ typedef struct	s_cub3d
 	t_image		img;
 	t_sprite	*spr;
 	t_raycast	ray;
+	t_spr_ray	sray;
 }				t_cub3d;
 
 
 //	cub3d.c
-
+void	init_cub3d(t_cub3d *cub);
+int		main_arg_handler(int argc, char **argv, t_cub3d *cub);
+void	parse_handler(t_cub3d *cub);
 
 //	parse.c
-int				parsing_info(t_cub3d *cub, char **info);
-void			parsing_map(t_cub3d *cub, char *line);
+void	set_resolution(t_cub3d *cub, char **info);
+void	set_color(t_cub3d *cub, char **info);
+int		parsing_info(t_cub3d *cub, char **info);
+void	store_map(t_cub3d *cub, t_list *cur, int i, int j);
+void	parsing_map(t_cub3d *cub, char *line);
 
+//	preset.c
+void	store_tex(t_cub3d *cub, char **path, t_image *img);
+void	set_spr_loc(t_cub3d *cub);
+void	sort_spr(t_cub3d *cub);
+void	set_spr_tex(t_cub3d *cub, t_spr_ray *sray, int x);
+void	preset(t_cub3d *cub);
 
-// check.c
-void			check_valid(t_cub3d *cub);
+//	run.c
+void	rendering(t_cub3d *cub);
+void	raycast_wall(t_cub3d *cub);
+int		main_loop(t_cub3d *cub);
+void	raycast_spr(t_cub3d *cub, t_camera *cam, t_spr_ray *sray);
+void	run_cub3d(t_cub3d *cub, bool is_save);
 
+// move.c
+int		press_key(int key, t_cub3d *cub);
+int		press_release(int key, t_cub3d *cub);
+void	move_cam(t_cub3d *cub, double vx, double vy);
+void	rotate_cam(t_camera *cam, double rot);
+void	positioning_cam(t_cub3d *cub, bool *key);
+
+//	racast.c
+void	pre_dda(t_camera *cam, t_raycast *ray);
+void	calc_dda(t_cub3d *cub, t_raycast *ray);
+void	set_wall_dist_height(t_cub3d *cub, t_camera *cam, t_raycast *ray);
+void	set_wall_tex(t_cub3d *cub, t_camera *cam, t_raycast *ray, int x);
+void	calc_spr(t_cub3d *cub, t_spr_ray *sray);
 
 //	utils.c
 void			error_exit(char *str);
@@ -170,18 +220,8 @@ int				check_extension(char *s, char *ex);
 int				isdigit_str(char *str);
 void			deallocation_2d(char **arr);
 void			_err(bool err, int code);
-
-void			run_cub3d(t_cub3d *cub, bool is_save);
-void			preset(t_cub3d *cub);
-
-//move.c
-int				press_key(int key, t_cub3d *cub);
-int				press_release(int key, t_cub3d *cub);
-void			positioning_cam(t_cub3d *cub, bool *key);
-void			rotate_cam(t_camera *cam, double rot);
-void			init_raycast(t_cub3d *cub, t_camera *cam, t_raycast *ray, int x);
-
 void _test(t_cub3d *cub);
+void check_valid(t_cub3d *cub);
 
 
 #endif
