@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:13 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/24 08:16:43 by youncho          ###   ########.fr       */
+/*   Updated: 2021/03/24 13:58:39 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdbool.h>
 
 # define TITLE "cub3D"
+
+# define TEX_SIDE 256
 
 # define TRUE 1
 # define FALSE 0
@@ -55,8 +57,6 @@
 # define K_DOWN 125
 # define K_RIGHT 124
 # define K_SPACE 49
-
-# define TEX_SIDE 256
 
 # define V_MODE 0.0
 
