@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 01:35:50 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/24 08:11:02 by youncho          ###   ########.fr       */
+/*   Updated: 2021/03/24 14:04:07 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,25 +111,27 @@ void	preset(t_cub3d *cub)
 									&cub->img.line_size, &cub->img.endian);
 }
 
-
 void	set_spr_tex(t_cub3d *cub, t_spr_ray *sray, int x)
 {
 	int y;
 	int draw;
 	int color;
+	int side_len;
 
-	sray->tex_x = (int)((TEX_SIDE * (x - (-sray->width / 2 + sray->screen_x)) *
-								TEX_SIDE / sray->width) / TEX_SIDE);
+	side_len = cub->img.width;
+	sray->tex_x = (int)((side_len * (x - (-sray->width / 2 + sray->screen_x)) *
+								side_len / sray->width) / side_len);
 	if (0 < sray->transform_y && 0 < x && x < cub->screen_width &&
 		sray->transform_y < cub->z_buffer[x])
 	{
 		y = sray->draw_start_y - 1;
 		while (++y < sray->draw_end_y)
 		{
-			draw = (y - sray->v_move_screen) * TEX_SIDE - cub->screen_height *
-							(TEX_SIDE / 2) + sray->height * (TEX_SIDE / 2);
-			sray->tex_y = ((draw * TEX_SIDE) / sray->height) / TEX_SIDE;
-			color = cub->tex.tile[4][abs((TEX_SIDE * sray->tex_y + (TEX_SIDE - sray->tex_x - 1)) % (TEX_SIDE * TEX_SIDE))];
+			draw = (y - sray->v_move_screen) * side_len - cub->screen_height *
+							(side_len / 2) + sray->height * (side_len / 2);
+			sray->tex_y = ((draw * side_len) / sray->height) / side_len;
+			color = cub->tex.tile[4][abs((side_len * sray->tex_y +
+					(side_len - sray->tex_x - 1)) % (side_len * side_len))];
 			if ((color & 0x00FFFFFF) != 0)
 				cub->buf[y][x] = color;
 		}
