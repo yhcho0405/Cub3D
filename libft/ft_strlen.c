@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 16:43:49 by youncho           #+#    #+#             */
-/*   Updated: 2021/02/24 12:58:31 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 00:55:44 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen(const char *str)
 {
-	size_t len;
+	size_t	len;
 
 	if (!str)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:12:33 by youncho           #+#    #+#             */
-/*   Updated: 2021/02/23 20:26:41 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 00:52:20 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #  define BUFFER_SIZE 16
 # endif
 
-typedef struct			s_storage
+typedef struct s_storage
 {
 	int					fd;
 	char				buff[BUFFER_SIZE + 1];
@@ -36,7 +36,7 @@ typedef struct			s_storage
 
 int						get_next_line(int fd, char **line);
 int						gnl_init(int fd, char **line, t_storage **head,
-								t_storage **curr);
+							t_storage **curr);
 int						read_control(int fd, char **line, char *buffer);
 int						make_line(char **line, char *buffer, int i);
 size_t					ft_strlen(const char *str);

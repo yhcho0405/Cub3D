@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:13 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/24 13:58:39 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/15 12:23:30 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,9 @@ void	calc_dda(t_cub3d *cub, t_raycast *ray);
 void	set_wall_dist_height(t_cub3d *cub, t_camera *cam, t_raycast *ray);
 void	set_wall_tex(t_cub3d *cub, t_camera *cam, t_raycast *ray, int x);
 void	calc_spr(t_cub3d *cub, t_spr_ray *sray);
+
+
+void	screenshot(t_cub3d *cub);
 
 //	utils.c
 void			error_exit(char *str);
