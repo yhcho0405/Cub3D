@@ -6,18 +6,19 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:12:30 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/05 21:48:23 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 00:20:16 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int			set_line_size(char **line, size_t len)
+int	set_line_size(char **line, size_t len)
 {
 	char	*tmp;
 	size_t	i;
 
-	if (!(tmp = malloc(BUFFER_SIZE + len + 1)))
+	tmp = malloc(BUFFER_SIZE + len + 1);
+	if (!tmp)
 		return (FAILURE);
 	i = -1;
 	while (++i < len)
@@ -30,9 +31,10 @@ int			set_line_size(char **line, size_t len)
 
 t_storage	*get_new_node(int fd)
 {
-	t_storage *ret;
+	t_storage	*ret;
 
-	if (!(ret = malloc(sizeof(t_storage))))
+	ret = malloc(sizeof(t_storage));
+	if (!ret)
 		return (FAILURE);
 	ret->fd = fd;
 	ret->next = (t_storage *)0;
@@ -51,7 +53,7 @@ t_storage	*get_current_node(int fd, t_storage *node)
 	return (node);
 }
 
-int			deallocation(int fd, t_storage **head, int ret)
+int	deallocation(int fd, t_storage **head, int ret)
 {
 	t_storage	*prev;
 	t_storage	*del;

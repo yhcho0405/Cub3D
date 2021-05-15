@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 03:25:42 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/20 11:30:46 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/15 12:28:07 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	_err(bool err, int code)
 	else if (code == 6)
 		error_exit("Map Error");
 	else if (code == 7)
-		error_exit("Allocation Fail");
+		error_exit("open() Fail");
 	else if (code == 8)
 		error_exit("Allocation Fail");
 	else if (code == 9)

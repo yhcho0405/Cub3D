@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 01:35:50 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/24 14:04:07 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/13 14:26:56 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	sort_spr(t_cub3d *cub)
 
 void	preset(t_cub3d *cub)
 {
-		int i;
+	int i;
 
 	_err(!(cub->buf = ft_calloc(cub->screen_height, sizeof(int **))), 1);
 	i = -1;
