@@ -6,56 +6,11 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 03:25:42 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/15 12:28:07 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 09:08:24 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void map_check(t_cub3d *cub)
-{
-	int i;
-	int j;
-	int is_inside;
-
-	i = -1;
-	while (++i < cub->map_height && (j = -1) && !(is_inside = 0))
-	{
-		while (++j < cub->map_width)
-			if (!is_inside && cub->map[i][j] == '1')
-				is_inside = 1;
-			else if (!is_inside && ft_strchr("NEWS0", cub->map[i][j]))
-				error_exit("Map Error");
-			else if (is_inside && cub->map[i][j] == ' ' && !(is_inside = 0))
-				_err(cub->map[i][j - 1] != '1', 6);
-		_err(ft_strchr("NEWS0", cub->map[i][j - 1]), 6);
-	}
-	j = -1;
-	while (++j < cub->map_width && (i = -1) && !(is_inside = 0))
-	{
-		while (++i < cub->map_height)
-			if (!is_inside && cub->map[i][j] == '1')
-				is_inside = 1;
-			else if (!is_inside && ft_strchr("NEWS0", cub->map[i][j]))
-				error_exit("Map Error");
-			else if (is_inside && cub->map[i][j] == ' ' && !(is_inside = 0))
-				_err(cub->map[i - 1][j] != '1', 6);
-		_err(ft_strchr("NEWS0", cub->map[i - 1][j]), 6);
-	}
-}
-
-void check_valid(t_cub3d *cub)
-{
-	_err(!cub->screen_width || !cub->screen_height ||
-		!cub->tex.path[0] || !cub->tex.path[1] ||
-		!cub->tex.path[2] || !cub->tex.path[3] ||
-		!cub->tex.path[4] || cub->tex.rgb[0] == -1 ||
-		cub->tex.rgb[1] == -1, 4);
-	_err(!cub->map_width || !cub->map_height ||
-		!cub->cam.dir || !cub->cam.x || !cub->cam.y, 5);
-	map_check(cub);
-}
-
 
 void	error_exit(char *str)
 {
@@ -91,18 +46,11 @@ void	_err(bool err, int code)
 		error_exit("Allocation Fail");
 	else if (code == 11)
 		error_exit("Allocation Fail");
-	else if (code == 12)
-		error_exit("Allocation Fail");
 }
 
-int		check_extension(char *s, char *ex)
+int	isdigit_str(char *str)
 {
-	return (!ft_strncmp(s + ft_strlen(s) - ft_strlen(ex), ex, ft_strlen(ex)));
-}
-
-int		isdigit_str(char *str)
-{
-	size_t i;
+	size_t	i;
 
 	i = -1;
 	while (str[++i])
@@ -113,7 +61,7 @@ int		isdigit_str(char *str)
 
 void	deallocation_2d(char **arr)
 {
-	size_t i;
+	size_t	i;
 
 	i = -1;
 	while (arr[++i])
@@ -121,7 +69,7 @@ void	deallocation_2d(char **arr)
 	free(arr);
 }
 
-
+/*
 void _test(t_cub3d *cub)
 {
 	printf("\n=================t_cub3d=================\n");
@@ -148,3 +96,4 @@ void _test(t_cub3d *cub)
 		//printf("%s\n", cub->map[i]);
 	printf("=========================================\n");
 }
+*/

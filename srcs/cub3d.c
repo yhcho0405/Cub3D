@@ -6,15 +6,11 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:16 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/24 13:56:07 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 04:34:22 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
-// 텍스쳐 스프라이트 해상도 다를 때 abort, 예외처리.
-
 
 void	init_cub3d(t_cub3d *cub)
 {
@@ -37,7 +33,7 @@ void	init_cub3d(t_cub3d *cub)
 	ft_memset(cub->key, 0, sizeof(cub->key));
 }
 
-int		main_arg_handler(int argc, char **argv, t_cub3d *cub)
+int	main_arg_handler(int argc, char **argv, t_cub3d *cub)
 {
 	bool	is_save;
 
@@ -50,7 +46,8 @@ int		main_arg_handler(int argc, char **argv, t_cub3d *cub)
 		error_exit("Wrong Arguments");
 	if (!check_extension(argv[1], ".cub"))
 		error_exit("Wrong map file extension");
-	if((cub->fd = open(argv[1], O_RDONLY)) == FAIL)
+	cub->fd = open(argv[1], O_RDONLY);
+	if (cub->fd == FAIL)
 		error_exit("CUB file open() fail");
 	return (is_save);
 }
@@ -69,7 +66,7 @@ void	parse_handler(t_cub3d *cub)
 		if (field == INFO)
 		{
 			_err(!(split = ft_split(line, ' ')), 1);
-			field = parsing_info(cub, split);
+			field = parsing_info(cub, split, 0);
 			deallocation_2d(split);
 		}
 		if (field == MAP)
@@ -81,13 +78,12 @@ void	parse_handler(t_cub3d *cub)
 	}
 }
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	bool	is_save;
 	t_cub3d	cub;
 
-	is_save =
-	main_arg_handler(argc, argv, &cub);
+	is_save = main_arg_handler(argc, argv, &cub);
 	init_cub3d(&cub);
 	parse_handler(&cub);
 	run_cub3d(&cub, is_save);

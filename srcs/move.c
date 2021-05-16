@@ -6,19 +6,19 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 02:56:20 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/20 23:10:58 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 09:13:40 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
-int		press_key(int key, t_cub3d *cub)
+int	press_key(int key, t_cub3d *cub)
 {
 	cub->key[key] = true;
 	return (0);
 }
 
-int		press_release(int key, t_cub3d *cub)
+int	release_key(int key, t_cub3d *cub)
 {
 	cub->key[key] = false;
 	return (0);
@@ -34,7 +34,7 @@ void	move_cam(t_cub3d *cub, double vx, double vy)
 
 void	rotate_cam(t_camera *cam, double rot)
 {
-	double tmp;
+	double	tmp;
 
 	tmp = cam->dir_x;
 	cam->dir_x = cam->dir_x * cos(rot) - cam->dir_y * sin(rot);
@@ -46,7 +46,7 @@ void	rotate_cam(t_camera *cam, double rot)
 
 void	positioning_cam(t_cub3d *cub, bool *key)
 {
-	t_camera *cam;
+	t_camera	*cam;
 
 	cam = &cub->cam;
 	if (key[K_W])

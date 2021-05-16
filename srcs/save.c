@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   screenshot.c                                       :+:      :+:    :+:   */
+/*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 12:17:38 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/15 12:30:58 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 09:19:05 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	screenshot(t_cub3d *cub)
+void	save(t_cub3d *cub)
 {
-	int fd;
-	int size;
+	int	fd;
+	int	size;
 
 	raycast_wall(cub);
 	raycast_spr(cub, &cub->cam, &cub->sray);
