@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 01:32:28 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/15 12:23:13 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 09:14:13 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	rendering(t_cub3d *cub)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < cub->screen_height)
@@ -56,8 +56,8 @@ void	raycast_wall(t_cub3d *cub)
 
 void	raycast_spr(t_cub3d *cub, t_camera *cam, t_spr_ray *sray)
 {
-	int i;
-	int x;
+	int	i;
+	int	x;
 
 	sort_spr(cub);
 	i = -1;
@@ -65,14 +65,14 @@ void	raycast_spr(t_cub3d *cub, t_camera *cam, t_spr_ray *sray)
 	{
 		sray->x = cam->x - cub->spr[i].x;
 		sray->y = cam->y - cub->spr[i].y;
-		sray->inversion_detection = 1.0 /
-					(cam->plane_x * -cam->dir_y - -cam->dir_x * cam->plane_y);
-		sray->transform_x = sray->inversion_detection *
-							(-cam->dir_y * sray->x - -cam->dir_x * sray->y);
-		sray->transform_y = sray->inversion_detection *
-						(-cam->plane_y * sray->x + cam->plane_x * sray->y);
-		sray->screen_x = (int)((cub->screen_width / 2) *
-							(1 - sray->transform_x / sray->transform_y));
+		sray->inversion_detection = 1.0
+			/ (cam->plane_x * -cam->dir_y - -cam->dir_x * cam->plane_y);
+		sray->transform_x = sray->inversion_detection
+			* (-cam->dir_y * sray->x - -cam->dir_x * sray->y);
+		sray->transform_y = sray->inversion_detection
+			* (-cam->plane_y * sray->x + cam->plane_x * sray->y);
+		sray->screen_x = (int)((cub->screen_width / 2)
+				* (1 - sray->transform_x / sray->transform_y));
 		sray->v_move_screen = (int)(V_MODE / sray->transform_y);
 		calc_spr(cub, &cub->sray);
 		x = cub->sray.draw_start_x - 1;
@@ -81,10 +81,11 @@ void	raycast_spr(t_cub3d *cub, t_camera *cam, t_spr_ray *sray)
 	}
 }
 
-int		main_loop(t_cub3d *cub)
+int	main_loop(t_cub3d *cub)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
+
 	i = -1;
 	positioning_cam(cub, cub->key);
 	raycast_wall(cub);
@@ -101,9 +102,9 @@ void	run_cub3d(t_cub3d *cub, bool is_save)
 	else
 	{
 		cub->win = mlx_new_window(cub->mlx, cub->screen_width,
-									cub->screen_height, "cub3D");
+				cub->screen_height, "cub3D");
 		mlx_hook(cub->win, X_EVENT_KEY_PRESS, 0, press_key, cub);
-		mlx_hook(cub->win, X_EVENT_KEY_RELEASE, 0, press_release, cub);
+		mlx_hook(cub->win, X_EVENT_KEY_RELEASE, 0, release_key, cub);
 		mlx_loop_hook(cub->mlx, main_loop, cub);
 		mlx_loop(cub->mlx);
 	}

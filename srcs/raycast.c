@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 14:48:31 by youncho           #+#    #+#             */
-/*   Updated: 2021/03/24 04:35:02 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 02:41:43 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,44 +78,45 @@ void	set_wall_dist_height(t_cub3d *cub, t_camera *cam, t_raycast *ray)
 
 void	set_wall_tex(t_cub3d *cub, t_camera *cam, t_raycast *ray, int x)
 {
-	int y;
+	int	y;
 
+	ray->wall_x = cam->x + ray->perp_wall_dist * ray->dir_x;
 	if (ray->side == EAST || ray->side == WEST)
 		ray->wall_x = cam->y + ray->perp_wall_dist * ray->dir_y;
-	else
-		ray->wall_x = cam->x + ray->perp_wall_dist * ray->dir_x;
 	ray->wall_x -= floor(ray->wall_x);
 	ray->tex_x = (int)(ray->wall_x * (double)cub->img.width);
 	if (ray->side == EAST || ray->side == SOUTH)
 		ray->tex_x = cub->img.width - ray->tex_x - 1;
 	ray->step = 1.0 * cub->img.height / ray->line_height;
 	ray->tex_pos = (ray->draw_start - cub->screen_height / 2
-						+ ray->line_height / 2) * ray->step;
+			+ ray->line_height / 2) * ray->step;
 	y = -1;
 	while (++y < cub->screen_height)
+	{
 		if (ray->draw_start <= y && y < ray->draw_end)
 		{
 			ray->tex_y = (int)ray->tex_pos & (cub->img.height - 1);
 			ray->tex_pos += ray->step;
 			cub->buf[y][x] = cub->tex.tile[ray->side][cub->img.height
-											 * ray->tex_y + ray->tex_x];
+				* ray->tex_y + ray->tex_x];
 		}
 		else
 			cub->buf[y][x] = cub->tex.rgb[(int)(y < cub->screen_height / 2)];
+	}
 }
 
 void	calc_spr(t_cub3d *cub, t_spr_ray *sray)
 {
-	int div;
+	int	div;
 
 	div = 1;
 	sray->height = (int)fabs((cub->screen_height / sray->transform_y) / div);
-	sray->draw_start_y =
-		-sray->height / 2 + cub->screen_height / 2 + sray->v_move_screen;
+	sray->draw_start_y
+		= -sray->height / 2 + cub->screen_height / 2 + sray->v_move_screen;
 	if (sray->draw_start_y < 0)
 		sray->draw_start_y = 0;
-	sray->draw_end_y =
-		sray->height / 2 + cub->screen_height / 2 + sray->v_move_screen;
+	sray->draw_end_y
+		= sray->height / 2 + cub->screen_height / 2 + sray->v_move_screen;
 	if (sray->draw_end_y >= cub->screen_height)
 		sray->draw_end_y = cub->screen_height - 1;
 	div = 1;
