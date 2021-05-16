@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:13 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 09:29:31 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 11:29:00 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ void	parsing_map(t_cub3d *cub, char *line);
 void	store_tex(t_cub3d *cub, char **path, t_image *img);
 void	set_spr_loc(t_cub3d *cub);
 void	sort_spr(t_cub3d *cub);
+void	preset(t_cub3d *cub);
 void	set_spr_tex(t_cub3d *cub, t_spr_ray *sray, int x);
 
 //	run.c
@@ -216,15 +217,13 @@ void	map_check_row(t_cub3d *cub);
 void	map_check_col(t_cub3d *cub);
 void	check_valid(t_cub3d *cub);
 int		check_extension(char *s, char *ex);
+int		isdigit_str(char *str);
 
 //	utils.c
 void	error_exit(char *str);
 void	_err(bool err, int code);
-int		isdigit_str(char *str);
 void	deallocation_2d(char **arr);
-void	_test(t_cub3d *cub);
-
-//	save.c
+void	make_bmp(t_cub3d *cub, int fd);
 void	save(t_cub3d *cub);
 
 #endif

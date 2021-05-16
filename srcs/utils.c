@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 03:25:42 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 09:08:24 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 11:30:46 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,6 @@ void	_err(bool err, int code)
 		error_exit("Allocation Fail");
 }
 
-int	isdigit_str(char *str)
-{
-	size_t	i;
-
-	i = -1;
-	while (str[++i])
-		if (!ft_isdigit(str[i]))
-			return (0);
-	return (1);
-}
-
 void	deallocation_2d(char **arr)
 {
 	size_t	i;
@@ -67,6 +56,55 @@ void	deallocation_2d(char **arr)
 	while (arr[++i])
 		free(arr[i]);
 	free(arr);
+}
+
+void	make_bmp(t_cub3d *cub, int fd)
+{
+	const unsigned char	zero[3] = {0, 0, 0};
+	int					i;
+	int					j;
+	int					pad;
+
+	i = cub->screen_height;
+	pad = (4 - (cub->screen_width * 3) % 4) % 4;
+	while (--i >= 0)
+	{
+		j = 0;
+		while (j < cub->screen_width)
+		{
+			write(fd, &(cub->buf[i][j]), 3);
+			if (pad > 0)
+				write(fd, &zero, pad);
+			j++;
+		}
+	}
+}
+
+void	save(t_cub3d *cub)
+{
+	int				fd;
+	int				size;
+	unsigned char	header[54];
+
+	raycast_wall(cub);
+	raycast_spr(cub, &cub->cam, &cub->sray);
+	size = 54 + 3 * cub->screen_width * cub->map_height;
+	fd = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 00755);
+	if (fd < 0)
+		error_exit("screenshot file open() fail");
+	ft_memset(header, 0, 54);
+	header[0] = (unsigned char) 'B';
+	header[1] = (unsigned char) 'M';
+	ft_itocs(header + 2, size);
+	header[10] = (unsigned char)54;
+	header[14] = (unsigned char)40;
+	ft_itocs(header + 18, cub->screen_width);
+	ft_itocs(header + 22, cub->screen_height);
+	header[26] = (unsigned char)1;
+	header[28] = (unsigned char)24;
+	write(fd, header, 54);
+	make_bmp(cub, fd);
+	exit(0);
 }
 
 /*

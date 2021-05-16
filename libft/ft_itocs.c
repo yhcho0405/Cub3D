@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save.c                                             :+:      :+:    :+:   */
+/*   ft_itocs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 12:17:38 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 09:19:05 by youncho          ###   ########.fr       */
+/*   Created: 2021/05/16 10:59:46 by youncho           #+#    #+#             */
+/*   Updated: 2021/05/16 11:00:10 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-void	save(t_cub3d *cub)
+void	ft_itocs(unsigned char *s, int i)
 {
-	int	fd;
-	int	size;
-
-	raycast_wall(cub);
-	raycast_spr(cub, &cub->cam, &cub->sray);
-	size = 54 + 3 * cub->screen_width * cub->map_height;
-	fd = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 00755);
-	if (fd < 0)
-		error_exit("open() fail");
+	s[0] = (unsigned char)i;
+	s[1] = (unsigned char)(i >> 8);
+	s[2] = (unsigned char)(i >> 16);
+	s[3] = (unsigned char)(i >> 24);
 }

@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:16 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 04:34:22 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 11:09:33 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,5 @@ int	main(int argc, char **argv)
 	init_cub3d(&cub);
 	parse_handler(&cub);
 	run_cub3d(&cub, is_save);
-	_test(&cub);
 	return (0);
 }
