@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 06:09:30 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 08:28:42 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 11:09:02 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	set_color(t_cub3d *cub, char **info)
 
 int	parsing_info(t_cub3d *cub, char **info, int i)
 {
-	static char	*tex_name[5] = {"NO", "SO", "WE", "EA", "S"};
+	const char	*tex_name[5] = {"NO", "SO", "WE", "EA", "S"};
 	int			fd;
 
 	while (i < 5)

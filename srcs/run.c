@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 01:32:28 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 09:14:13 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 11:06:23 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	run_cub3d(t_cub3d *cub, bool is_save)
 {
 	preset(cub);
 	if (is_save)
-		screenshot(cub);
+		save(cub);
 	else
 	{
 		cub->win = mlx_new_window(cub->mlx, cub->screen_width,

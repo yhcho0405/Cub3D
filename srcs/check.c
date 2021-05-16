@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 09:07:22 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 09:08:26 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/16 11:27:51 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,15 @@ void	check_valid(t_cub3d *cub)
 int	check_extension(char *s, char *ex)
 {
 	return (!ft_strncmp(s + ft_strlen(s) - ft_strlen(ex), ex, ft_strlen(ex)));
+}
+
+int	isdigit_str(char *str)
+{
+	size_t	i;
+
+	i = -1;
+	while (str[++i])
+		if (!ft_isdigit(str[i]))
+			return (0);
+	return (1);
 }
