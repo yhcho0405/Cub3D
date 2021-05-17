@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 06:09:30 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 11:09:02 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/17 15:40:44 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ void	set_resolution(t_cub3d *cub, char **info)
 {
 	if (!info[1] || !info[2])
 		error_exit("Missing Resolution Value");
+	if (info[3])
+		error_exit("Too Many Resolution Value");
 	if (!isdigit_str(info[1]) || !isdigit_str(info[2]))
 		error_exit("Wrong Resolution Value");
+	cub->parse_chk += pow(2, 5);
 	cub->screen_width = ft_atoi(info[1]);
 	if (ft_atoi(info[1]) > MAX_SCREEN_WIDTH)
 		cub->screen_width = MAX_SCREEN_WIDTH;
@@ -38,6 +41,9 @@ void	set_color(t_cub3d *cub, char **info)
 	int		rgb;
 
 	_err(!(rgb_str = ft_split(info[1], ',')), 1);
+	if (info[2])
+		error_exit("Too Many Color Value");
+	cub->parse_chk += pow(2, 6 + (int)(info[0][0] == 'F'));
 	i = -1;
 	rgb = 0;
 	while (++i < 3)
@@ -56,7 +62,7 @@ void	set_color(t_cub3d *cub, char **info)
 	deallocation_2d(rgb_str);
 }
 
-int	parsing_info(t_cub3d *cub, char **info, int i)
+void	parsing_info(t_cub3d *cub, char **info, int i)
 {
 	const char	*tex_name[5] = {"NO", "SO", "WE", "EA", "S"};
 	int			fd;
@@ -65,23 +71,21 @@ int	parsing_info(t_cub3d *cub, char **info, int i)
 	{
 		if (!ft_strncmp(info[0], tex_name[i++], 3))
 		{
-			if (!info[1] || !check_extension(info[1], ".xpm"))
-				error_exit("Wrong texture file extension");
+			if (!info[1] || info[2] || !check_extension(info[1], ".xpm"))
+				error_exit("Wrong texture file ext or arg");
 			fd = open(info[1], O_RDONLY);
 			if (fd == FAIL)
 				error_exit("XPM file open() fail");
 			close(fd);
+			cub->parse_chk += pow(2, i - 1);
 			cub->tex.path[i - 1] = ft_strdup(info[1]);
-			return (INFO);
+			return ;
 		}
 	}
 	if (!ft_strncmp(info[0], "R", 2))
 		set_resolution(cub, info);
 	else if (!ft_strncmp(info[0], "F", 2) || !ft_strncmp(info[0], "C", 2))
 		set_color(cub, info);
-	else
-		return (MAP);
-	return (INFO);
 }
 
 void	store_map(t_cub3d *cub, t_list *cur, int i, int j)

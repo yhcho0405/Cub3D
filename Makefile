@@ -12,7 +12,7 @@ SRCS =	srcs/cub3d.c \
 		gnl/get_next_line_utils.c \
 
 NAME = Cub3D
-GCC_FLAG = -g -fsanitize=address # -Wall -Werror -Wextra
+GCC_FLAG = -Wall -Werror -Wextra #-g -fsanitize=address
 CC = gcc $(GCC_FLAG)
 
 OBJS = $(SRCS:.c=.o)
