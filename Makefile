@@ -17,14 +17,10 @@ CC = gcc $(GCC_FLAG)
 
 OBJS = $(SRCS:.c=.o)
 
-all: libft minilibx $(NAME)
+all: libft $(NAME)
 
 libft:
 	make bonus -C libft/
-
-minilibx:
-	make -C mlx
-
 
 $(%.o): $(%.c)
 	$(CC) -o $@ -c $^
@@ -35,11 +31,9 @@ $(NAME): $(OBJS)
 clean:
 	rm -f $(OBJS)
 	make -C libft/ clean
-	make -C mlx clean
 
 fclean: clean
 	rm -f $(NAME)
 	make -C libft/ fclean
-	make -C mlx clean
 
 re: fclean all
