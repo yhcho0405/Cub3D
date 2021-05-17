@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 14:48:31 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 02:41:43 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/17 12:00:51 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	calc_dda(t_cub3d *cub, t_raycast *ray)
 	}
 }
 
-void	set_wall_dist_height(t_cub3d *cub, t_camera *cam, t_raycast *ray)
+void	set_wall_dist_height(t_cub3d *cub, t_raycast *ray)
 {
 	if (ray->side == WEST || ray->side == EAST)
 		ray->perp_wall_dist = ray->side_dist_x - ray->delta_dist_x;

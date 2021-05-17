@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:16 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 11:09:33 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/17 15:41:57 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_cub3d(t_cub3d *cub)
 	cub->tex.rgb[0] = -1;
 	cub->tex.rgb[1] = -1;
 	cub->spr_num = 0;
+	cub->parse_chk = 0;
 	ft_memset(cub->key, 0, sizeof(cub->key));
 }
 
@@ -56,20 +57,21 @@ void	parse_handler(t_cub3d *cub)
 {
 	char	*line;
 	char	**split;
-	int		field;
+	int		cnt;
 
-	field = INFO;
+	cnt = 0;
 	while (get_next_line(cub->fd, &line) > 0)
 	{
-		if (field == INFO && !line[0])
+		if (!line[0])
 			continue ;
-		if (field == INFO)
+		if (cnt < 8 && ++cnt)
 		{
 			_err(!(split = ft_split(line, ' ')), 1);
-			field = parsing_info(cub, split, 0);
+			parsing_info(cub, split, 0);
 			deallocation_2d(split);
+			_err((cnt == 8) && (cub->parse_chk != 0b11111111), 4);
 		}
-		if (field == MAP)
+		else if ((cnt == 8) && (cub->parse_chk == 0b11111111))
 		{
 			parsing_map(cub, line);
 			break ;

@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 01:32:28 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 11:06:23 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/17 12:01:28 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	raycast_wall(t_cub3d *cub)
 		ray->hit = 0;
 		pre_dda(cam, ray);
 		calc_dda(cub, ray);
-		set_wall_dist_height(cub, cam, ray);
+		set_wall_dist_height(cub, ray);
 		set_wall_tex(cub, cam, ray, x);
 		cub->z_buffer[x] = cub->ray.perp_wall_dist;
 	}
@@ -84,7 +84,6 @@ void	raycast_spr(t_cub3d *cub, t_camera *cam, t_spr_ray *sray)
 int	main_loop(t_cub3d *cub)
 {
 	int	i;
-	int	j;
 
 	i = -1;
 	positioning_cam(cub, cub->key);

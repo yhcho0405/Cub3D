@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:13 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 11:29:00 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/17 15:40:42 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ typedef struct s_cub3d
 	char		**map;
 	int			map_width;
 	int			map_height;
+	int			parse_chk;
 	void		*mlx;
 	void		*win;
 	int			spr_num;
@@ -180,7 +181,7 @@ void	parse_handler(t_cub3d *cub);
 //	parse.c
 void	set_resolution(t_cub3d *cub, char **info);
 void	set_color(t_cub3d *cub, char **info);
-int		parsing_info(t_cub3d *cub, char **info, int i);
+void	parsing_info(t_cub3d *cub, char **info, int i);
 void	store_map(t_cub3d *cub, t_list *cur, int i, int j);
 void	parsing_map(t_cub3d *cub, char *line);
 
@@ -208,7 +209,7 @@ void	positioning_cam(t_cub3d *cub, bool *key);
 //	racast.c
 void	pre_dda(t_camera *cam, t_raycast *ray);
 void	calc_dda(t_cub3d *cub, t_raycast *ray);
-void	set_wall_dist_height(t_cub3d *cub, t_camera *cam, t_raycast *ray);
+void	set_wall_dist_height(t_cub3d *cub, t_raycast *ray);
 void	set_wall_tex(t_cub3d *cub, t_camera *cam, t_raycast *ray, int x);
 void	calc_spr(t_cub3d *cub, t_spr_ray *sray);
 

@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 09:07:22 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 11:27:51 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/17 14:52:29 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	map_check_row(t_cub3d *cub)
 				_err(cub->map[i][j - 1] != '1', 6);
 			}
 		}
-		_err(ft_strchr("NEWS0", cub->map[i][j - 1]), 6);
+		_err(!ft_strchr("1 ", cub->map[i][j - 1]), 6);
 	}
 }
 
