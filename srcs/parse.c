@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 06:09:30 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/17 15:40:44 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/18 09:05:14 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	set_color(t_cub3d *cub, char **info)
 	int		brightness;
 	int		rgb;
 
-	_err(!(rgb_str = ft_split(info[1], ',')), 1);
 	if (info[2])
 		error_exit("Too Many Color Value");
+	_err(!(rgb_str = ft_split(info[1], ',')), 1);
 	cub->parse_chk += pow(2, 6 + (int)(info[0][0] == 'F'));
 	i = -1;
 	rgb = 0;
@@ -72,10 +72,10 @@ void	parsing_info(t_cub3d *cub, char **info, int i)
 		if (!ft_strncmp(info[0], tex_name[i++], 3))
 		{
 			if (!info[1] || info[2] || !check_extension(info[1], ".xpm"))
-				error_exit("Wrong texture file ext or arg");
+				error_exit("Wrong texture file ext or arg"); // tex.path, info
 			fd = open(info[1], O_RDONLY);
 			if (fd == FAIL)
-				error_exit("XPM file open() fail");
+				error_exit("XPM file open() fail"); // tex.path, info
 			close(fd);
 			cub->parse_chk += pow(2, i - 1);
 			cub->tex.path[i - 1] = ft_strdup(info[1]);

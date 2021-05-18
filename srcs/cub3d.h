@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:13 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/17 15:40:42 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/18 11:41:20 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ typedef struct s_cub3d
 void	init_cub3d(t_cub3d *cub);
 int		main_arg_handler(int argc, char **argv, t_cub3d *cub);
 void	parse_handler(t_cub3d *cub);
+int		close_all(t_cub3d *cub, int win);
 
 //	parse.c
 void	set_resolution(t_cub3d *cub, char **info);
