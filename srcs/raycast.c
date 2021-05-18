@@ -111,12 +111,12 @@ void	calc_spr(t_cub3d *cub, t_spr_ray *sray)
 
 	div = 1;
 	sray->height = (int)fabs((cub->screen_height / sray->transform_y) / div);
-	sray->draw_start_y
-		= -sray->height / 2 + cub->screen_height / 2 + sray->v_move_screen;
+	sray->draw_start_y =
+		-sray->height / 2 + cub->screen_height / 2 + sray->v_move_screen;
 	if (sray->draw_start_y < 0)
 		sray->draw_start_y = 0;
-	sray->draw_end_y
-		= sray->height / 2 + cub->screen_height / 2 + sray->v_move_screen;
+	sray->draw_end_y =
+		sray->height / 2 + cub->screen_height / 2 + sray->v_move_screen;
 	if (sray->draw_end_y >= cub->screen_height)
 		sray->draw_end_y = cub->screen_height - 1;
 	div = 1;

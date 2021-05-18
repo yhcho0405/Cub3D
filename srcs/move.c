@@ -12,13 +12,13 @@
 
 #include "cub3d.h"
 
-int	press_key(int key, t_cub3d *cub)
+int		press_key(int key, t_cub3d *cub)
 {
 	cub->key[key] = true;
 	return (0);
 }
 
-int	release_key(int key, t_cub3d *cub)
+int		release_key(int key, t_cub3d *cub)
 {
 	cub->key[key] = false;
 	return (0);

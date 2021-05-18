@@ -81,7 +81,7 @@ void	raycast_spr(t_cub3d *cub, t_camera *cam, t_spr_ray *sray)
 	}
 }
 
-int	main_loop(t_cub3d *cub)
+int		main_loop(t_cub3d *cub)
 {
 	int	i;
 

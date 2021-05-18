@@ -44,7 +44,7 @@ char	**allocate_fail(char **tmp, size_t idx)
 	return (0);
 }
 
-int	init_split(char const *s, char c, size_t *idx, char ***ret)
+int		init_split(char const *s, char c, size_t *idx, char ***ret)
 {
 	if (!s)
 		return (0);

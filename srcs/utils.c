@@ -20,7 +20,7 @@ void	error_exit(char *str)
 	exit(0);
 }
 
-void	_err(bool err, int code)
+void	error_handler(bool err, int code)
 {
 	if (!err)
 		return ;
@@ -93,8 +93,8 @@ void	save(t_cub3d *cub)
 	if (fd < 0)
 		error_exit("screenshot file open() fail");
 	ft_memset(header, 0, 54);
-	header[0] = (unsigned char) 'B';
-	header[1] = (unsigned char) 'M';
+	header[0] = (unsigned char)'B';
+	header[1] = (unsigned char)'M';
 	ft_itocs(header + 2, size);
 	header[10] = (unsigned char)54;
 	header[14] = (unsigned char)40;
@@ -106,32 +106,3 @@ void	save(t_cub3d *cub)
 	make_bmp(cub, fd);
 	exit(0);
 }
-
-/*
-void _test(t_cub3d *cub)
-{
-	printf("\n=================t_cub3d=================\n");
-	//printf("screen_width : %d\n", cub->screen_width);
-	//printf("screen_height : %d\n", cub->screen_height);
-	//printf("map_width : %d\n", cub->map_width);
-	//printf("map_height : %d\n", cub->map_height);
-	printf("\n");
-	printf("cam.x : %f\n", cub->cam.x);
-	printf("cam.y : %f\n", cub->cam.y);
-	printf("cam.dir : %c\n", cub->cam.dir);
-	printf("cam.plane_x %f\n", cub->cam.plane_x);
-	printf("cam.plane_y %f\n", cub->cam.plane_y);
-	printf("\n");
-	//printf("tex.path[0] : %s\n", cub->tex.path[0]);
-	//printf("tex.path[1] : %s\n", cub->tex.path[1]);
-	//printf("tex.path[2] : %s\n", cub->tex.path[2]);
-	//printf("tex.path[3] : %s\n", cub->tex.path[3]);
-	//printf("tex.path[4] : %s\n", cub->tex.path[4]);
-	//printf("tex.rgb[0] : %x, [1] : %x\n", cub->tex.rgb[0], cub->tex.rgb[1]);
-	//printf("\n");
-	//printf("-------<map>-------\n");
-	//for (int i = 0; i < cub->map_height; i++)
-		//printf("%s\n", cub->map[i]);
-	printf("=========================================\n");
-}
-*/

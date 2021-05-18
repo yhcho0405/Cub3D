@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int	set_line_size(char **line, size_t len)
+int			set_line_size(char **line, size_t len)
 {
 	char	*tmp;
 	size_t	i;
@@ -53,7 +53,7 @@ t_storage	*get_current_node(int fd, t_storage *node)
 	return (node);
 }
 
-int	deallocation(int fd, t_storage **head, int ret)
+int			deallocation(int fd, t_storage **head, int ret)
 {
 	t_storage	*prev;
 	t_storage	*del;

@@ -27,7 +27,7 @@
 #  define BUFFER_SIZE 16
 # endif
 
-typedef struct s_storage
+typedef struct			s_storage
 {
 	int					fd;
 	char				buff[BUFFER_SIZE + 1];

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	get_len_2(long long n)
+int		get_len_2(long long n)
 {
 	if (n < 10)
 		return (1);
@@ -21,10 +21,10 @@ int	get_len_2(long long n)
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	int				len;
-	long long		tmp;
-	char			ret[13];
-	int				l;
+	int			len;
+	long long	tmp;
+	char		ret[13];
+	int			l;
 
 	len = 0;
 	tmp = n;

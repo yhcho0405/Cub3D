@@ -65,14 +65,14 @@
 
 # define PI 3.1415926535897
 
-typedef struct s_texture
+typedef struct	s_texture
 {
 	char		*path[6];
 	int			*tile[6];
 	int			rgb[2];
 }				t_texture;
 
-typedef struct s_camera
+typedef struct	s_camera
 {
 	double		x;
 	double		y;
@@ -85,7 +85,7 @@ typedef struct s_camera
 	char		dir;
 }				t_camera;
 
-typedef struct s_image
+typedef struct	s_image
 {
 	int			width;
 	int			height;
@@ -96,14 +96,14 @@ typedef struct s_image
 	int			endian;
 }				t_image;
 
-typedef struct s_sprite
+typedef struct	s_sprite
 {
 	double		x;
 	double		y;
 	double		dist;
 }				t_sprite;
 
-typedef struct s_raycast
+typedef struct	s_raycast
 {
 	double		cam_x;
 	double		dir_x;
@@ -130,7 +130,7 @@ typedef struct s_raycast
 	int			tex_y;
 }				t_raycast;
 
-typedef struct s_spr_ray
+typedef struct	s_spr_ray
 {
 	double		x;
 	double		y;
@@ -149,7 +149,7 @@ typedef struct s_spr_ray
 	int			tex_y;
 }				t_spr_ray;
 
-typedef struct s_cub3d
+typedef struct	s_cub3d
 {
 	int			fd;
 	int			screen_width;
@@ -162,7 +162,7 @@ typedef struct s_cub3d
 	void		*mlx;
 	void		*win;
 	int			spr_num;
-	bool		key[128];
+	bool		key[512];
 	double		*z_buffer;
 	t_camera	cam;
 	t_texture	tex;
@@ -173,59 +173,76 @@ typedef struct s_cub3d
 	t_spr_ray	sray;
 }				t_cub3d;
 
-//	cub3d.c
-void	init_cub3d(t_cub3d *cub);
-int		main_arg_handler(int argc, char **argv, t_cub3d *cub);
-void	parse_handler(t_cub3d *cub);
-int		close_all(t_cub3d *cub, int win);
+/*
+** cub3d.c
+*/
+void			init_cub3d(t_cub3d *cub);
+int				main_arg_handler(int argc, char **argv, t_cub3d *cub);
+void			parse_handler(t_cub3d *cub);
+int				close_all(t_cub3d *cub, int win);
 
-//	parse.c
-void	set_resolution(t_cub3d *cub, char **info);
-void	set_color(t_cub3d *cub, char **info);
-void	parsing_info(t_cub3d *cub, char **info, int i);
-void	store_map(t_cub3d *cub, t_list *cur, int i, int j);
-void	parsing_map(t_cub3d *cub, char *line);
+/*
+** parse.c
+*/
+void			set_resolution(t_cub3d *cub, char **info);
+void			set_color(t_cub3d *cub, char **info);
+void			parsing_info(t_cub3d *cub, char **info, int i);
+void			store_map(t_cub3d *cub, t_list *cur, int i, int j);
+void			parsing_map(t_cub3d *cub, char *line);
 
-//	preset.c
-void	store_tex(t_cub3d *cub, char **path, t_image *img);
-void	set_spr_loc(t_cub3d *cub);
-void	sort_spr(t_cub3d *cub);
-void	preset(t_cub3d *cub);
-void	set_spr_tex(t_cub3d *cub, t_spr_ray *sray, int x);
+/*
+** preset.c
+*/
+void			store_tex(t_cub3d *cub, char **path, t_image *img);
+void			set_spr_loc(t_cub3d *cub);
+void			sort_spr(t_cub3d *cub);
+void			preset(t_cub3d *cub);
+void			set_spr_tex(t_cub3d *cub, t_spr_ray *sray, int x);
 
-//	run.c
-void	rendering(t_cub3d *cub);
-void	raycast_wall(t_cub3d *cub);
-void	raycast_spr(t_cub3d *cub, t_camera *cam, t_spr_ray *sray);
-int		main_loop(t_cub3d *cub);
-void	run_cub3d(t_cub3d *cub, bool is_save);
+/*
+** run.c
+*/
+void			rendering(t_cub3d *cub);
+void			raycast_wall(t_cub3d *cub);
+void			raycast_spr(t_cub3d *cub, t_camera *cam, t_spr_ray *sray);
+int				main_loop(t_cub3d *cub);
+void			run_cub3d(t_cub3d *cub, bool is_save);
 
-// move.c
-int		press_key(int key, t_cub3d *cub);
-int		release_key(int key, t_cub3d *cub);
-void	move_cam(t_cub3d *cub, double vx, double vy);
-void	rotate_cam(t_camera *cam, double rot);
-void	positioning_cam(t_cub3d *cub, bool *key);
+/*
+** move.c
+*/
+int				press_key(int key, t_cub3d *cub);
+int				release_key(int key, t_cub3d *cub);
+void			move_cam(t_cub3d *cub, double vx, double vy);
+void			rotate_cam(t_camera *cam, double rot);
+void			positioning_cam(t_cub3d *cub, bool *key);
 
-//	racast.c
-void	pre_dda(t_camera *cam, t_raycast *ray);
-void	calc_dda(t_cub3d *cub, t_raycast *ray);
-void	set_wall_dist_height(t_cub3d *cub, t_raycast *ray);
-void	set_wall_tex(t_cub3d *cub, t_camera *cam, t_raycast *ray, int x);
-void	calc_spr(t_cub3d *cub, t_spr_ray *sray);
+/*
+** racast.c
+*/
+void			pre_dda(t_camera *cam, t_raycast *ray);
+void			calc_dda(t_cub3d *cub, t_raycast *ray);
+void			set_wall_dist_height(t_cub3d *cub, t_raycast *ray);
+void			set_wall_tex(t_cub3d *cub, t_camera *cam,
+						t_raycast *ray, int x);
+void			calc_spr(t_cub3d *cub, t_spr_ray *sray);
 
-//	check.c
-void	map_check_row(t_cub3d *cub);
-void	map_check_col(t_cub3d *cub);
-void	check_valid(t_cub3d *cub);
-int		check_extension(char *s, char *ex);
-int		isdigit_str(char *str);
+/*
+** check.c
+*/
+void			map_check_row(t_cub3d *cub);
+void			map_check_col(t_cub3d *cub);
+void			check_valid(t_cub3d *cub);
+int				check_extension(char *s, char *ex);
+int				isdigit_str(char *str);
 
-//	utils.c
-void	error_exit(char *str);
-void	_err(bool err, int code);
-void	deallocation_2d(char **arr);
-void	make_bmp(t_cub3d *cub, int fd);
-void	save(t_cub3d *cub);
+/*
+** utils.c
+*/
+void			error_exit(char *str);
+void			error_handler(bool err, int code);
+void			deallocation_2d(char **arr);
+void			make_bmp(t_cub3d *cub, int fd);
+void			save(t_cub3d *cub);
 
 #endif
