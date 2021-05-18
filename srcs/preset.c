@@ -25,15 +25,15 @@ void	store_tex(t_cub3d *cub, char **path, t_image *img)
 				&img->height);
 		img->data = (int *)mlx_get_data_addr(img->ptr, &img->bpp,
 				&img->line_size, &img->endian);
-		_err(!(cub->tex.tile[n] = (int *)calloc(TEX_SIDE * TEX_SIDE,
+		error_handler(!(cub->tex.tile[n] = (int *)calloc(TEX_SIDE * TEX_SIDE,
 					sizeof(int))), 1);
 		i = -1;
 		while (++i < img->height)
 		{
 			j = -1;
 			while (++j < img->width)
-				cub->tex.tile[n][img->width * i + j]
-					= img->data[img->width * i + (img->width - j - 1)];
+				cub->tex.tile[n][img->width * i + j] =
+					img->data[img->width * i + (img->width - j - 1)];
 		}
 		mlx_destroy_image(cub->mlx, img->ptr);
 		free(path[n]);
@@ -46,7 +46,7 @@ void	set_spr_loc(t_cub3d *cub)
 	int	j;
 	int	n;
 
-	_err(!(cub->spr = malloc(sizeof(t_sprite) * cub->spr_num)), 1);
+	error_handler(!(cub->spr = malloc(sizeof(t_sprite) * cub->spr_num)), 1);
 	n = 0;
 	i = -1;
 	while (++i < cub->map_height)
@@ -95,17 +95,20 @@ void	preset(t_cub3d *cub)
 {
 	int	i;
 
-	_err(!(cub->buf = ft_calloc(cub->screen_height, sizeof(int **))), 1);
+	error_handler(!(cub->buf = ft_calloc(cub->screen_height,
+							sizeof(int **))), 1);
 	i = -1;
 	while (++i < cub->screen_height)
-		_err(!(cub->buf[i] = ft_calloc(cub->screen_width, sizeof(int *))), 1);
-	_err(!(cub->z_buffer = ft_calloc(cub->screen_width, sizeof(double *))), 1);
+		error_handler(!(cub->buf[i] = ft_calloc(cub->screen_width,
+							sizeof(int *))), 1);
+	error_handler(!(cub->z_buffer = ft_calloc(cub->screen_width,
+							sizeof(double *))), 1);
 	if (cub->cam.dir == 'N')
 		rotate_cam(&cub->cam, (PI / 180) * 90);
 	else if (cub->cam.dir == 'E')
-		rotate_cam(&cub->cam, (PI / 180) * 0);
-	else if (cub->cam.dir == 'W')
 		rotate_cam(&cub->cam, (PI / 180) * 180);
+	else if (cub->cam.dir == 'W')
+		rotate_cam(&cub->cam, (PI / 180) * 0);
 	else if (cub->cam.dir == 'S')
 		rotate_cam(&cub->cam, (PI / 180) * 270);
 	cub->mlx = mlx_init();

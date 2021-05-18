@@ -12,9 +12,6 @@
 
 #include "cub3d.h"
 
-//	x버튼 종료
-//	exit 누수
-
 void	init_cub3d(t_cub3d *cub)
 {
 	cub->screen_width = 0;
@@ -37,7 +34,7 @@ void	init_cub3d(t_cub3d *cub)
 	ft_memset(cub->key, 0, sizeof(cub->key));
 }
 
-int	main_arg_handler(int argc, char **argv, t_cub3d *cub)
+int		main_arg_handler(int argc, char **argv, t_cub3d *cub)
 {
 	bool	is_save;
 
@@ -65,55 +62,47 @@ void	parse_handler(t_cub3d *cub)
 	cnt = 0;
 	while (get_next_line(cub->fd, &line) > 0)
 	{
-		if (!line[0])
-			continue ;
-		if (cnt < 8 && ++cnt)
+		if (line[0])
 		{
-			_err(!(split = ft_split(line, ' ')), 1);
-			parsing_info(cub, split, 0);
-			deallocation_2d(split);
-			_err((cnt == 8) && (cub->parse_chk != 0b11111111), 4);
-		}
-		else if ((cnt == 8) && (cub->parse_chk == 0b11111111))
-		{
-			parsing_map(cub, line);
-			break ;
+			if (cnt < 8 && ++cnt)
+			{
+				error_handler(!(split = ft_split(line, ' ')), 1);
+				parsing_info(cub, split, 0);
+				deallocation_2d(split);
+				error_handler((cnt == 8) && (cub->parse_chk != 0b11111111), 4);
+			}
+			else if ((cnt == 8) && (cub->parse_chk == 0b11111111))
+			{
+				parsing_map(cub, line);
+				break ;
+			}
 		}
 		free(line);
 	}
 }
 
-int	close_all(t_cub3d *cub, int win)
+int		close_all(t_cub3d *cub, int win)
 {
 	int	i;
-char c;
+
 	i = -1;
-	scanf("%c", &c);
 	deallocation_2d(cub->map);
-	scanf("%c", &c);
 	while (++i < cub->screen_height)
 		free(cub->buf[i]);
-	scanf("%c", &c);
 	free(cub->buf);
-	scanf("%c", &c);
 	free(cub->z_buffer);
-	scanf("%c", &c);
 	i = -1;
 	while (++i < 5)
 		free(cub->tex.tile[i]);
-	scanf("%c", &c);
 	free(cub->spr);
-	scanf("%c", &c);
 	if (win == 1)
 		mlx_destroy_window(cub->mlx, cub->win);
-	scanf("%c", &c);
 	free(cub->mlx);
-	scanf("%c", &c);
 	exit(0);
 	return (0);
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	bool	is_save;
 	t_cub3d	cub;

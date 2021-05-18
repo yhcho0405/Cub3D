@@ -42,7 +42,7 @@ void	set_color(t_cub3d *cub, char **info)
 
 	if (info[2])
 		error_exit("Too Many Color Value");
-	_err(!(rgb_str = ft_split(info[1], ',')), 1);
+	error_handler(!(rgb_str = ft_split(info[1], ',')), 1);
 	cub->parse_chk += pow(2, 6 + (int)(info[0][0] == 'F'));
 	i = -1;
 	rgb = 0;
@@ -72,10 +72,10 @@ void	parsing_info(t_cub3d *cub, char **info, int i)
 		if (!ft_strncmp(info[0], tex_name[i++], 3))
 		{
 			if (!info[1] || info[2] || !check_extension(info[1], ".xpm"))
-				error_exit("Wrong texture file ext or arg"); // tex.path, info
+				error_exit("Wrong texture file ext or arg");
 			fd = open(info[1], O_RDONLY);
 			if (fd == FAIL)
-				error_exit("XPM file open() fail"); // tex.path, info
+				error_exit("XPM file open() fail");
 			close(fd);
 			cub->parse_chk += pow(2, i - 1);
 			cub->tex.path[i - 1] = ft_strdup(info[1]);
@@ -92,20 +92,20 @@ void	store_map(t_cub3d *cub, t_list *cur, int i, int j)
 {
 	char	*tmp;
 
-	while (++i < cub->map_height)
+	while (++i < cub->map_height && (tmp = (char *)cur->content))
 	{
-		tmp = (char *)cur->content;
-		_err(!(cub->map[i] = malloc(cub->map_width + 1)), (j = -1) + 2);
+		j = -1;
+		error_handler(!(cub->map[i] = malloc(cub->map_width + 1)), 1);
 		while (++j < cub->map_width)
 			cub->map[i][j] = ' ';
-		cub->map[i][cub->map_width] = (j = -1) + 1;
+		cub->map[i][cub->map_width] = 0;
+		j = -1;
 		while (++j < (int)ft_strlen(tmp))
 		{
-			_err(!tmp[j] && !ft_strchr("012 NEWS\n", tmp[j]), 2);
-			cub->map[i][j] = tmp[j];
-			if (ft_strchr("NEWS", tmp[j]))
+			error_handler(!tmp[j] || !ft_strchr("012 NEWS\n", tmp[j]), 2);
+			if ((cub->map[i][j] = tmp[j]) && ft_strchr("NEWS", tmp[j]))
 			{
-				_err(cub->cam.dir, 3);
+				error_handler(cub->cam.dir, 3);
 				cub->cam.dir = tmp[j];
 				cub->cam.x = (double)j + 0.5;
 				cub->cam.y = (double)i + 0.5;
@@ -137,7 +137,8 @@ void	parsing_map(t_cub3d *cub, char *line)
 	free(line);
 	close(cub->fd);
 	cub->map_height = ft_lstsize(cub->lst);
-	_err(!(cub->map = malloc(sizeof(char *) * (cub->map_height + 1))), 1);
+	error_handler(!(cub->map = malloc(sizeof(char *)
+		* (cub->map_height + 1))), 1);
 	cub->map[cub->map_height] = NULL;
 	store_map(cub, cub->lst, -1, -1);
 	ft_lstclear(&(cub->lst), free);

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	find_set(char c, char const *set)
+int		find_set(char c, char const *set)
 {
 	while (*set)
 	{

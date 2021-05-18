@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	get_len(long long n)
+int		get_len(long long n)
 {
 	if (n < 10)
 		return (1);
@@ -21,9 +21,9 @@ int	get_len(long long n)
 
 char	*ft_itoa(int n)
 {
-	char			*ret;
-	int				len;
-	long long		tmp;
+	char		*ret;
+	int			len;
+	long long	tmp;
 
 	len = 0;
 	tmp = n;

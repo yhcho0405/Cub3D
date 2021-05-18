@@ -32,10 +32,10 @@ void	map_check_row(t_cub3d *cub)
 			else if (is_inside && cub->map[i][j] == ' ')
 			{
 				is_inside = 0;
-				_err(cub->map[i][j - 1] != '1', 6);
+				error_handler(cub->map[i][j - 1] != '1', 6);
 			}
 		}
-		_err(!ft_strchr("1 ", cub->map[i][j - 1]), 6);
+		error_handler(!ft_strchr("1 ", cub->map[i][j - 1]), 6);
 	}
 }
 
@@ -59,32 +59,32 @@ void	map_check_col(t_cub3d *cub)
 			else if (is_inside && cub->map[i][j] == ' ')
 			{
 				is_inside = 0;
-				_err(cub->map[i - 1][j] != '1', 6);
+				error_handler(cub->map[i - 1][j] != '1', 6);
 			}
 		}
-		_err(ft_strchr("NEWS0", cub->map[i - 1][j]), 6);
+		error_handler(ft_strchr("NEWS0", cub->map[i - 1][j]), 6);
 	}
 }
 
 void	check_valid(t_cub3d *cub)
 {
-	_err(!cub->screen_width || !cub->screen_height
+	error_handler(!cub->screen_width || !cub->screen_height
 		|| !cub->tex.path[0] || !cub->tex.path[1]
 		|| !cub->tex.path[2] || !cub->tex.path[3]
 		|| !cub->tex.path[4] || cub->tex.rgb[0] == -1
 		|| cub->tex.rgb[1] == -1, 4);
-	_err(!cub->map_width || !cub->map_height
+	error_handler(!cub->map_width || !cub->map_height
 		|| !cub->cam.dir || !cub->cam.x || !cub->cam.y, 5);
 	map_check_row(cub);
 	map_check_col(cub);
 }
 
-int	check_extension(char *s, char *ex)
+int		check_extension(char *s, char *ex)
 {
 	return (!ft_strncmp(s + ft_strlen(s) - ft_strlen(ex), ex, ft_strlen(ex)));
 }
 
-int	isdigit_str(char *str)
+int		isdigit_str(char *str)
 {
 	size_t	i;
 
