@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 02:56:20 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/16 09:13:40 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/18 11:33:02 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ void	positioning_cam(t_cub3d *cub, bool *key)
 	if (key[K_RIGHT])
 		rotate_cam(&cub->cam, cub->cam.rotate);
 	if (key[K_ESC])
-		exit(0);
+		close_all(cub, 1);
 }

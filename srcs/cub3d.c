@@ -6,11 +6,14 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:16 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/17 16:23:29 by youncho          ###   ########.fr       */
+/*   Updated: 2021/05/18 12:47:56 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+//	x버튼 종료
+//	exit 누수
 
 void	init_cub3d(t_cub3d *cub)
 {
@@ -78,6 +81,36 @@ void	parse_handler(t_cub3d *cub)
 		}
 		free(line);
 	}
+}
+
+int	close_all(t_cub3d *cub, int win)
+{
+	int	i;
+char c;
+	i = -1;
+	scanf("%c", &c);
+	deallocation_2d(cub->map);
+	scanf("%c", &c);
+	while (++i < cub->screen_height)
+		free(cub->buf[i]);
+	scanf("%c", &c);
+	free(cub->buf);
+	scanf("%c", &c);
+	free(cub->z_buffer);
+	scanf("%c", &c);
+	i = -1;
+	while (++i < 5)
+		free(cub->tex.tile[i]);
+	scanf("%c", &c);
+	free(cub->spr);
+	scanf("%c", &c);
+	if (win == 1)
+		mlx_destroy_window(cub->mlx, cub->win);
+	scanf("%c", &c);
+	free(cub->mlx);
+	scanf("%c", &c);
+	exit(0);
+	return (0);
 }
 
 int	main(int argc, char **argv)
