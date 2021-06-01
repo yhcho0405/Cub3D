@@ -6,7 +6,7 @@
 /*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:25:16 by youncho           #+#    #+#             */
-/*   Updated: 2021/05/18 12:47:56 by youncho          ###   ########.fr       */
+/*   Updated: 2021/06/01 16:16:45 by youncho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_cub3d(t_cub3d *cub)
 	cub->cam.plane_x = 0.0;
 	cub->cam.plane_y = 0.66;
 	cub->cam.move = 0.07;
-	cub->cam.rotate = 0.08;
+	cub->cam.rotate = 0.06;
 	cub->tex.rgb[0] = -1;
 	cub->tex.rgb[1] = -1;
 	cub->spr_num = 0;
